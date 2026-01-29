@@ -28,9 +28,6 @@ def get_people():
 
     people = []
     
-    
-    print(conn.entries)  # Debugging line to print the entries retrieved from LDAP
-
     for entry in conn.entries:
         people.append({
             "cn": entry.cn.value if entry.cn else "",
