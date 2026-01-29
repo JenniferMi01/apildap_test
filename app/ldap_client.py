@@ -6,7 +6,7 @@ from app.config import (
     LDAP_BASE_DN
 )
 
-ATTRIBUTES = ["cn", "mail", "departmentNumber", "ou"]
+ATTRIBUTES = ["cn", "mail", "departmentNumber", "ou", "employeeType", "employeeNumber"]
 
 
 def get_people():
@@ -27,16 +27,21 @@ def get_people():
     )
 
     people = []
+    
+    
+    print(conn.entries)  # Debugging line to print the entries retrieved from LDAP
 
     for entry in conn.entries:
         people.append({
             "cn": entry.cn.value if entry.cn else "",
             "mail": entry.mail.value if entry.mail else "",
+            "employeeType": entry.employeeType.value if entry.employeeType else "",
             "department": (
                 entry.departmentNumber.value
                 if entry.departmentNumber
                 else entry.ou.value if entry.ou else "Unknown"
-            )
+            ),
+            "employeeNumber": entry.employeeNumber.value if entry.employeeNumber else ""
         })
 
     conn.unbind()

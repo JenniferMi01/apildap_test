@@ -4,3 +4,6 @@ class Person(BaseModel):
     cn: str
     mail: str
     department: str
+    employeeNumber: str
+    employeeType: str
+    
